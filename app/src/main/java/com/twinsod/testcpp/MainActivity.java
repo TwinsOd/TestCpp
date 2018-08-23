@@ -1,7 +1,9 @@
 package com.twinsod.testcpp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import org.opencv.android.OpenCVLoader;
@@ -22,6 +24,14 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this, Tutorial1Activity.class));
+                startActivity(new Intent(MainActivity.this, Tutorial2Activity.class));
+//                startActivity(new Intent(MainActivity.this, CameraTestActivity.class));
+            }
+        });
 
         if (!OpenCVLoader.initDebug()){
             tv.setText(tv.getText() + "\n OpenCVLoader.initDebug(), not working.");
@@ -30,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             //DRS
             tv.setText(tv.getText() + "\n" + validate(0L, 0L));
         }
+        PermissionUtils.checkAllPermission(this);
     }
 
     /**
